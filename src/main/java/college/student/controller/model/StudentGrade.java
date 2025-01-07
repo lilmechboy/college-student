@@ -20,7 +20,30 @@ public class StudentGrade {
 		letterGrade = grade.getLetterGrade();
 		pointGrade = grade.getPointGrade();
 		quarterTaken = grade.getQuarterTaken();
-		courseId = grade.getCourseId();
+		
+		//I want to incorporate this feature in the future
+		//courseId = grade.getCourseId();
+	}
+	
+	public StudentGrade(Long gradeId, String letterGrade, Long pointGrade, 
+			String quarterTaken, Long courseId) {
+		
+		this.gradeId = gradeId;
+		this.letterGrade = letterGrade;
+		this.pointGrade = pointGrade;
+		this.quarterTaken = quarterTaken;
+		// this.courseId = courseId;
+	}
+
+	public Grade toGrade() {
+		Grade grade = new Grade();
+		
+		grade.setGradeId(gradeId);
+		grade.setLetterGrade(letterGrade);
+		grade.setPointGrade(pointGrade);
+		grade.setQuarterTaken(quarterTaken);
+		//grade.setCourseId(courseId);
+		return grade;
 	}
 	
 }

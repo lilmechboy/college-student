@@ -24,7 +24,7 @@ public class Grade {
 	
 	//you will need to figure this one out
 	
-	private Long courseId;
+	//private Long courseId;
 	
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude

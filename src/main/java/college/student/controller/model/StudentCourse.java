@@ -19,5 +19,25 @@ public class StudentCourse {
 		coursePrefix = course.getCoursePrefix();
 		courseContent = course.getCourseContent();
 	}
+	
+	public StudentCourse(Long courseId, String courseName, 
+			String coursePrefix, String courseContent) {
+		
+		this.courseId = courseId;
+		this.courseName = courseName;
+		this.coursePrefix = coursePrefix;
+		this.courseContent = courseContent;
+	}
+	
+	public Course toCourse() {
+		Course course = new Course();
+		
+		course.setCourseId(courseId);
+		course.setCourseName(courseName);
+		course.setCoursePrefix(coursePrefix);
+		course.setCourseContent(courseContent);
+		
+		return course;
+	}
 
 }
