@@ -68,7 +68,6 @@ public class StudentService {
 		return new StudentData(student);
 	}
 	
-	@Transactional(readOnly = false)
 	public StudentCourse saveCourse(StudentCourse studentCourse) {
 		Course course = studentCourse.toCourse();
 		Course dbCourse = courseDao.save(course);

@@ -138,7 +138,7 @@ public class StudentController {
 	
 	// Read  all grades
 	@GetMapping("/student/{studentId}/grade")
-	public List<StudentGrade> retrieveAllGrade(@PathVariable Long studentId) {
+	public List<StudentGrade> retrieveAllGradeByStudentId(@PathVariable Long studentId) {
 		log.info("Retrieving all Grades from student with ID= {}", studentId);
 		return studentService.retrieveAllGrades(studentId);
 	}

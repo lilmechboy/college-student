@@ -44,7 +44,7 @@ public class GlobalErrorHandler {
 	@ResponseStatus(code = HttpStatus.METHOD_NOT_ALLOWED)
 	public ExceptionMessage handleUnsupportedOperationException(
 			UnsupportedOperationException ex, WebRequest webRequest) {
-		return buildExceptionMessage(ex, HttpStatus.INTERNAL_SERVER_ERROR,
+		return buildExceptionMessage(ex, HttpStatus.METHOD_NOT_ALLOWED,
 				webRequest, LogStatus.STACK_TRACE);
 	}
 	
