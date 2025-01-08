@@ -19,12 +19,12 @@ public class Grade {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long gradeId;
 	private String letterGrade;
-	private Long pointGrade;
+	private double pointGrade;
 	private String quarterTaken;
 	
 	//you will need to figure this one out
 	
-	//private Long courseId;
+	private Long courseId;
 	
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude

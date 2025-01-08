@@ -20,6 +20,7 @@ import lombok.ToString;
 @Entity
 @Data
 public class Student {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long studentId;
@@ -44,7 +45,7 @@ public class Student {
 	
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Grade> grades = new HashSet<>();
 
 }

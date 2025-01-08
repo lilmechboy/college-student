@@ -129,6 +129,7 @@ public class StudentController {
 	
 	// Create  new grade
 	@PostMapping("/student/{studentId}/grade")
+	@ResponseStatus(code = HttpStatus.CREATED)
 	public StudentGrade insertGrade(@PathVariable Long studentId, 
 			@RequestBody StudentGrade studentGrade) {
 		log.info("Inputing Grade for student with ID= {}", studentId);
@@ -137,8 +138,7 @@ public class StudentController {
 	
 	// Read  all grades
 	@GetMapping("/student/{studentId}/grade")
-	public List<StudentGrade> retrieveGrade(@PathVariable Long studentId,
-			@PathVariable Long gradeId) {
+	public List<StudentGrade> retrieveAllGrade(@PathVariable Long studentId) {
 		log.info("Retrieving all Grades from student with ID= {}", studentId);
 		return studentService.retrieveAllGrades(studentId);
 	}
@@ -162,7 +162,7 @@ public class StudentController {
 		log.info("Deleting grade with ID= {} from student with ID= {}", 
 				gradeId, studentId);
 		studentService.deleteGradeById(studentId, gradeId);
-		return Map.of("map", "Grade with ID= " + gradeId + " from Student with ID= "
+		return Map.of("msg", "Grade with ID= " + gradeId + " from Student with ID= "
 				+ studentId + " has been deleted"); 
 	}
 	

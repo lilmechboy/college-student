@@ -10,7 +10,7 @@ public class StudentGrade {
 	
 	private Long gradeId;
 	private String letterGrade;
-	private Long pointGrade;
+	private double pointGrade;
 	private String quarterTaken;
 	private Long courseId;
 	
@@ -22,17 +22,17 @@ public class StudentGrade {
 		quarterTaken = grade.getQuarterTaken();
 		
 		//I want to incorporate this feature in the future
-		//courseId = grade.getCourseId();
+		courseId = grade.getCourseId();
 	}
 	
-	public StudentGrade(Long gradeId, String letterGrade, Long pointGrade, 
+	public StudentGrade(Long gradeId, String letterGrade, double pointGrade, 
 			String quarterTaken, Long courseId) {
 		
 		this.gradeId = gradeId;
 		this.letterGrade = letterGrade;
 		this.pointGrade = pointGrade;
 		this.quarterTaken = quarterTaken;
-		// this.courseId = courseId;
+		this.courseId = courseId;
 	}
 
 	public Grade toGrade() {
@@ -42,7 +42,7 @@ public class StudentGrade {
 		grade.setLetterGrade(letterGrade);
 		grade.setPointGrade(pointGrade);
 		grade.setQuarterTaken(quarterTaken);
-		//grade.setCourseId(courseId);
+		grade.setCourseId(courseId);
 		return grade;
 	}
 	

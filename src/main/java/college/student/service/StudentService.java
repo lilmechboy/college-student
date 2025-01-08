@@ -54,7 +54,6 @@ public class StudentService {
 	public void deleteStudent(Long studentId) {
 		Student student = findStudentById(studentId);
 		studentDao.delete(student);
-		
 	}
 
 	private Student findStudentById(Long studentId) {
@@ -75,7 +74,8 @@ public class StudentService {
 		Course dbCourse = courseDao.save(course);
 		return new StudentCourse(dbCourse);
 	}
-
+	
+	@Transactional
 	public StudentCourse retrieveCourseById(Long courseId) {
 		Course course = findCourseById(courseId);
 		return new StudentCourse(course);
@@ -86,7 +86,8 @@ public class StudentService {
 				() -> new NoSuchElementException("Course with ID= " 
 						+ courseId + " was not found"));
 	}
-
+	
+	@Transactional(readOnly = true)
 	public List<StudentCourse> retrieveAllCourses() {
 		// @formatter:off
 		return courseDao.findAll()
@@ -96,16 +97,14 @@ public class StudentService {
 		// @formatter:on
 	}
 	
-	
 	@Transactional(readOnly = false)
 	public StudentGrade saveGrade(Long studentId, StudentGrade studentGrade) {
 		Student student = findStudentById(studentId);
-		Long gradeId = studentGrade.getGradeId();
-		
-		// If something breaks, check here first
-		Grade grade = findOrCreateGrade(studentId, gradeId);
+		//Long gradeId = studentGrade.getGradeId();
+		Grade grade = findOrCreateGrade(studentId, studentGrade.getGradeId());
 		
 		copyGradeFields(grade, studentGrade);
+		grade.setStudent(student);
 		
 		Set<Grade> grades = student.getGrades();
 		grades.add(grade);
@@ -123,17 +122,18 @@ public class StudentService {
 	}
 
 	private Grade findOrCreateGrade(Long studentId, Long gradeId) {
-		
+		Grade grade;
 		if(Objects.isNull(gradeId)) {
-			return new Grade();
+			grade = new Grade();
 		}else{
-			Grade grade = gradeDao.findById(gradeId)
+			grade = gradeDao.findById(gradeId)
 					.orElseThrow(() -> new NoSuchElementException(
 							"Grade with ID= " + gradeId + " does not exist"));
-			return grade;
 		}
+		return grade;
 	}
-
+	
+	@Transactional(readOnly = true)
 	public List<StudentGrade> retrieveAllGrades(Long studentId) {
 		StudentData studentData = retrieveStudentById(studentId);
 		Set<StudentGrade> grades = studentData.getGrades();
@@ -144,13 +144,15 @@ public class StudentService {
 		}
 		return response;
 	}
-
+	
+	@Transactional(readOnly = false)
 	public void deleteGradeById(Long studentId, Long gradeId) {
 		Grade grade = gradeDao.findById(gradeId)
 				.orElseThrow(() -> new NoSuchElementException(
 						"Grade with ID= " + gradeId + " does not exist"));
 		
 		List<StudentGrade> grades = retrieveAllGrades(studentId);
+		grade.setStudent(findStudentById(studentId));
 		
 		boolean found = false;
 		
@@ -167,7 +169,10 @@ public class StudentService {
 		}
 		else{
 			gradeDao.delete(grade);
+			System.out.println("after delete");
 		}
+		
+		
 	}
 	
 	// I'm gonna cut it out for now, but leave it in case I need to reverse and expand
